@@ -1,0 +1,10 @@
+matplotlib
+basemap
+basemap-data-hires
+ipywidgets
+plotly
+pandas
+# On Windows it's easiest to install basemap via conda-forge
+# conda install -c conda-forge basemap basemap-data-hires matplotlib ipywidgets
+# If you use the interactive Plotly notebook, install plotly and pandas either with conda or pip
+# conda install -c conda-forge plotly pandas
