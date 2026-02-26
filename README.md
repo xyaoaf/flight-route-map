@@ -1,38 +1,71 @@
-flight-route-map
+# ✈️ Flight Route Map
 
-This directory contains a small, self-contained project to visualize your past flights as great-circle routes on a world map.
+Interactive visualization of personal flight history — great-circle arcs on a map, with statistics and multiple base-map styles.
 
-Layout
+---
 
-- `flight_route_map.py` - A script that draws flight routes and saves `img/example_map.png`. It will read `data/my_flight_log.csv` if present.
- - `flight_route_map_interactive.ipynb` - An interactive Plotly notebook that renders routes inline and accepts pasted/uploaded route lists.
-- `data/my_flight_log.csv` - Optional CSV with flight log (columns: origin,destination,date). Example provided.
-- `img/example_map.png` - Output image (placeholder). The script writes here by default.
-- `requirements.txt` - Minimal Python dependencies for this project.
+## Quick Start (Streamlit App)
 
-Quick start (recommended using conda on Windows)
+```bash
+pip install -r requirements.txt
+streamlit run app.py
+```
 
-1. Create or activate a conda env:
+Open http://localhost:8501 in your browser.
 
-   conda create -n flightmap python=3.10 -y; conda activate flightmap
+## Features
 
-2. Install dependencies:
+| Feature | Details |
+|---|---|
+| **Base maps** | Satellite (Esri), Street Map, Dark, Light, Topo — no API key needed |
+| **Route colors** | 8 color themes, routes scale in width/opacity by frequency |
+| **Airport markers** | Bubble size = visit count; hover for details |
+| **Focus region** | Asia-Pacific (default), North America, Europe, World |
+| **Statistics** | Flights, airports, distance, countries, CO₂ estimate, Earth laps |
+| **Top airports** | Horizontal bar chart of most-visited airports |
+| **Route log** | Expandable table of every flight with distance |
+| **Custom data** | Upload your own CSV (columns: `origin`, `destination`) |
 
-   conda install -c conda-forge basemap basemap-data-hires matplotlib -y
+## Data Format
 
-   Also install ipywidgets if you plan to use the notebook UI: `conda install -c conda-forge ipywidgets -y`
+```csv
+origin,destination
+HKG,SFO
+SFO,AUS
+AUS,OAK
+```
 
-3. Populate your flight log (optional):
+IATA 3-letter codes only. Dates are optional (not yet used).
 
-   Edit `data/my_flight_log.csv` or leave it as-is. The CSV format should be: `origin,destination,date` (date optional).
+## Project Structure
 
-4. Run the script:
+```
+flight-route-map/
+├── app.py                            # Streamlit web app  ← START HERE
+├── flight_route_map_interactive.ipynb # Original Jupyter notebook (preserved)
+├── data/
+│   └── my_flight_log.csv             # Flight log (edit to add your own flights)
+├── requirements.txt
+└── .streamlit/
+    └── config.toml                   # Dark-theme defaults
+```
 
-   python flight_route_map.py
+## Adding Airports
 
-   The script will write `img/example_map.png` and print any missing airport codes.
+If you see a warning about unknown IATA codes, add them to the `AIRPORTS` dict in `app.py`:
 
-Notes
+```python
+"XYZ": (longitude, latitude, "Airport Full Name", "Country"),
+```
 
-- Basemap is deprecated; if you'd like I can convert the script and notebook to use Cartopy instead.
-- If you want the notebook UI version, you already have `myFlights/flight_route_map_notebook.ipynb` in the repository; I can copy/convert it into this folder if you prefer.
+## Dependencies
+
+- [Streamlit](https://streamlit.io) — web app framework
+- [Plotly](https://plotly.com/python/) — interactive maps and charts
+- [pyproj](https://pyproj4.github.io/pyproj/) — great-circle geodesics
+- [pandas](https://pandas.pydata.org/) — CSV parsing
+
+For the original Jupyter notebook, install via conda:
+```bash
+conda install -c conda-forge basemap basemap-data-hires matplotlib ipywidgets
+```

@@ -1,10 +1,11 @@
+# ── Streamlit app (app.py) ────────────────────────────────────────────────────
+streamlit>=1.32.0
+plotly>=5.18.0
+pandas>=2.0.0
+pyproj>=3.6.0
+
+# ── Original Jupyter notebook (flight_route_map_interactive.ipynb) ────────────
+# Install via conda for best compatibility on Windows/macOS:
+#   conda install -c conda-forge basemap basemap-data-hires matplotlib ipywidgets
 matplotlib
-basemap
-basemap-data-hires
 ipywidgets
-plotly
-pandas
-# On Windows it's easiest to install basemap via conda-forge
-# conda install -c conda-forge basemap basemap-data-hires matplotlib ipywidgets
-# If you use the interactive Plotly notebook, install plotly and pandas either with conda or pip
-# conda install -c conda-forge plotly pandas
